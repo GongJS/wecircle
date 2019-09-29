@@ -1,0 +1,43 @@
+.scrollview {
+  .loadmore {
+    width: 65%;
+    margin: 1.5em auto;
+    line-height: 1.6em;
+    font-size: 3.733vw;
+    text-align: center;
+    > .r-button--primary {
+      background: #fff;
+      border: none;
+      color: #ccc;
+    }
+  }
+  > .line {
+    border-top: 1px solid #e5e5e5;
+    width: 65%;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6em;
+    font-size: 3.733vw;
+    text-align: center;
+    > .tips {
+      padding: 0 0.16em;
+      position: relative;
+      top: -0.9em;
+      background-color: #fff;
+      color: #999;
+      display: inline-block;
+      vertical-align: middle;
+      &:before {
+        content: " ";
+        width: 1.067vw;
+        height: 1.067vw;
+        border-radius: 50%;
+        background-color: #e5e5e5;
+        display: inline-block;
+        position: relative;
+        vertical-align: 0;
+        top: -0.16em;
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+.header-bar {
+  height: 57px;
+  line-height:57px;
+  position: fixed;
+  width: 100%;
+  transition: all 400ms;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  &:after {
+    display: none;
+  }
+  &.show {
+    background-color: #ededed;
+    &:after {
+      background-color: #ededed;
+      display: block;
+    }
+  }
+  > .title {
+    font-size: 5vw;
+    font-weight: 700;
+  }
+  > .right-icon {
+    width: 6.4vw;
+    height: 6.4vw;
+    position: absolute;
+    right: 4.533vw;
+    top: 15px;
+  }
+}

@@ -1,0 +1,37 @@
+.post {
+  padding: 20px 10px;
+  height: calc(100vh - 40px);
+  >.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  >.content {
+    margin: 0 auto;
+    display: block;
+    width: 100%;
+    border: none;
+    margin-bottom: 10px;
+  }
+  >.textarea-counter {
+    color: #b2b2b2;
+    text-align: right;
+    margin-top:10px;
+    margin-bottom:10px;
+  }
+  >.img-counter {
+    color: #b2b2b2;
+    text-align: left;
+    margin-top:10px;
+    margin-bottom:10px;
+  }
+}
+.r-upload .r-upload-action {
+  width:20vw;
+  height:20vw;
+}
+.r-upload .r-upload-item {
+  width:20vw;
+  height:20vw;
+}

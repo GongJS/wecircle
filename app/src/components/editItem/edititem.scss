@@ -1,0 +1,19 @@
+.edit-item {
+  &-input {
+    border: none;
+    padding: 1.5vw 4vw;
+    input {
+      border: none;
+      color: #000;
+      font-size: 4vw,
+    }
+  }
+  &-button {
+    margin-top: 4vw;
+    padding-left: 4vw;
+    padding-right: 4vw;
+    button {
+      width: 100%;
+    }
+  }
+}

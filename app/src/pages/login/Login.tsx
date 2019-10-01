@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import useReactRouter from 'use-react-router';
 import { message } from 'redell-ui'
 import { post } from '../../utils/http'
@@ -16,7 +16,7 @@ const Login: React.FC<LoginProps> = (props) => {
   const [hasCode, setHasCode] = useState(false)
   const [count, setCount] = useState(60)
   const { history } = useReactRouter()
-  
+
   // 监听手机号
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -53,7 +53,7 @@ const Login: React.FC<LoginProps> = (props) => {
   }
   useEffect(() => {
     // 倒计时
-    let timer:number=0
+    let timer: number = 0
     if (hasCode) {
       timer = window.setInterval(() => {
         setCount(count - 1)
@@ -64,29 +64,31 @@ const Login: React.FC<LoginProps> = (props) => {
       setCount(60)
       clearInterval(timer)
     }
-     return () => clearInterval(timer)
-  },[count, hasCode])
+    return () => clearInterval(timer)
+  }, [count, hasCode])
   return (
     <div className="login">
-      <div className="close" onClick={() => history.push('/')}/>
-      <p className="title">手机号登录</p>
-      <div className="phone-wrapper border-top">
-        <div className="phone">手机号</div>
-        <div className="input">
-          <input type="number" onChange={handlePhoneChange} placeholder="请输入手机号" />
+      <div className="close" onClick={() => history.push('/')} />
+      <div className="content">
+        <p className="title">手机号登录</p>
+        <div className="phone-wrapper border-top">
+          <div className="phone">手机号</div>
+          <div className="input">
+            <input type="number" onChange={handlePhoneChange} placeholder="请输入手机号" />
+          </div>
+          {
+            hasCode ? <span style={{ color: '#3cc51f', fontSize: '16px', marginRight: '10vw' }}>{count}</span> : <div className="gcode" onClick={getVerifyCode}>获取验证码</div>
+          }
         </div>
-        {
-          hasCode ? <span style={{color: '#3cc51f',fontSize:'16px', marginRight:'10vw'}}>{ count }</span> : <div className="gcode" onClick={getVerifyCode}>获取验证码</div>
-        }
-      </div>
-      <div className="border-top"></div>
-      <div className="code-wrapper border-bottom">
-        <div className="code">手机验证码</div>
-        <div className="input">
-          <input type="number" onChange={handleCodeChange} placeholder="请输入验证码" />
+        <div className="border-top"></div>
+        <div className="code-wrapper border-bottom">
+          <div className="code">手机验证码</div>
+          <div className="input">
+            <input type="number" onChange={handleCodeChange} placeholder="请输入验证码" />
+          </div>
         </div>
+        <div className="login-btn" onClick={login}>确定</div>
       </div>
-      <div className="login-btn" onClick={login}>确定</div>
     </div>
   );
 }

@@ -78,12 +78,14 @@ const Chat: React.FC<ChatProps> = (props) => {
   }
   const initSocket = () => {
     socket.on('connect', () => {
+      console.log('connect')
       socket.emit('login', {...user});
     });
     socket.on('disconnect', () => {
-      socket.emit('logout', {...user});
+      console.log('disconnect')
     });
     socket.on('recieveMsg', (res: any) => {
+      console.log('receiveMsg')
       const newContent = {
         content: res.content,
         fromUser: res.fromUser,
@@ -131,7 +133,7 @@ const Chat: React.FC<ChatProps> = (props) => {
   useEffect(() => {
     getchathistory()
     initSocket()
-    return () => {socket.emit('logout', {...user})};
+    return () => {socket.emit('loginout', {...user})};
   }, []) //eslint-disable-line
   return (
     <div className="chat">

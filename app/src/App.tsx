@@ -25,6 +25,7 @@ const Routes = withRouter(({ location, history }) => {
   if (history.action === 'PUSH') {
     classNames = 'forward-' + getSceneConfig(location).enter;
   } else if (history.action === 'POP' && oldLocation) {
+    console.log(777,history.action )
     classNames = 'back-' + getSceneConfig(oldLocation).exit;
   }
 

@@ -30,8 +30,8 @@ const Post: React.FC = () => {
   const { history } = useReactRouter();
   const [loading, setLoading] = useState(false)
 
-  const handleChange = (val:string | number) => {
-    const value = val.toString()
+  const handleChange = (val:string) => {
+    const value = val
     if (strLen < 70 || value.length < content.length) {
       setContent(value)
       setStrLen(value.length)
@@ -71,6 +71,8 @@ const Post: React.FC = () => {
     setLoading(false)
     if (res && res.code === 0) {
       history.push('/')
+    } else {
+      message.error(res.message)
     }
   }
   const onClose = () => {

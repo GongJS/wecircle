@@ -16,8 +16,8 @@ const ChatList: React.FC<ChatListProps> = () => {
   const { history } = useReactRouter()
   const [keyword,setKeyWord] = useState('')
   const user = JSON.parse(localStorage.getItem('user') ||  '{}')
-  const handleChange = (value:string | number) => {
-    setKeyWord(value.toString())
+  const handleChange = (value:string) => {
+    setKeyWord(value)
   }
   const getchatlist = async () => {
     const res:any = await post('/api/getchatlist',{keyword: '',myId:user._id})

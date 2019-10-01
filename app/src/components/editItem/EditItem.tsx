@@ -7,11 +7,11 @@ interface EditItemProps {
   title?: string
   value?: string
   goBack?: () => any
-  onChange?: (value:string | number) => any
+  onChange?: (value:string) => any
   update?: () => any
 }
 
-const EditItem: React.FC<EditItemProps> = ({ title, value, goBack, onChange,update }) => {
+const EditItem: React.FC<EditItemProps> = ({ title, value, onChange,update }) => {
   return (
     <div className="edit-item">
       <NavBar title={title} />

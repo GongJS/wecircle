@@ -50,8 +50,8 @@ const Info: React.FC = () => {
     setVisibleEditItem(true)
   }
   // 监听text
-  const onChange = (value: string | number) => {
-    setValue(value.toString())
+  const onChange = (value: string) => {
+    setValue(value)
   }
   // 要更新到属性
   const handleClickItem = (type:string,title: string) => {

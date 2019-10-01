@@ -11,18 +11,19 @@ body {
   height: 100%;
   width:100%;
 }
+
 /**
  * 右侧淡入，右侧淡出
  */
 .forward-from-right-enter {
   z-index: 2;
-  transform: translate(100%);
+  transform: translateX(100%);
 }
 
 .forward-from-right-enter-active {
   z-index: 2;
-  transform: translate(0);
-  transition: all 500ms;
+  transform: translateX(0);
+  transition: transform 300ms;
 }
 
 .forward-from-right-exit {
@@ -31,30 +32,29 @@ body {
 
 .forward-from-right-exit-active {
   z-index: 1;
-  transition: all 500ms;
+  transition: transform 300ms;
 }
 
 .back-to-right-enter {
   z-index: 1;
+  transform: translateX(-100%);
 }
 
 .back-to-right-enter-active {
   z-index: 1;
-  opacity: 1;
-  transform: translate(0);
-  transition: all 500ms;
+  transform: translateX(0);
+  transition: transform 300ms;
 }
 
 .back-to-right-exit {
   z-index: 2;
-  opacity: 1;
-  transform: translate(0);
+  transform: translateX(0);
 }
 
 .back-to-right-exit-active {
   z-index: 2;
   transform: translate(100%);
-  transition: all 500ms;
+  transition: transform 300ms;
 }
 
 /**
@@ -62,49 +62,41 @@ body {
  */
 .forward-from-bottom-enter {
   z-index: 2;
-  opacity: 0;
   transform: translateY(100%);
 }
 
 .forward-from-bottom-enter-active {
   z-index: 2;
-  opacity: 1;
   transform: translateY(0);
-  transition: all 500ms;
+  transition: transform 5000ms;
 }
 
 .forward-from-bottom-exit {
   z-index: 1;
-  opacity: 1;
 }
 
 .forward-from-bottom-exit-active {
   z-index: 1;
-  opacity: .3;
-  transition: all 500ms;
+  transition: transform 5000ms;
 }
 
 .back-to-bottom-enter {
   z-index: 1;
-  opacity: .3;
 }
 
 .back-to-bottom-enter-active {
   z-index: 1;
-  opacity: 1;
-  transition: all 500ms;
+  transition: transform 5000ms;
 }
 
 .back-to-bottom-exit {
   z-index: 2;
-  opacity: 1;
   transform: translateY(0);
 }
 
 .back-to-bottom-exit-active {
   z-index: 2;
-  opacity: 0;
   transform: translateY(100%);
-  transition: all 500ms;
+  transition: transform 5000ms;
 }
 

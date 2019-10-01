@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useReactRouter from 'use-react-router';
 import './navbar.scss';
 
@@ -10,8 +10,14 @@ interface NavBarProps extends React.HTMLAttributes<HTMLElement> {
 const NavBar: React.FC<NavBarProps> = ({ title }) => {
   const { history } = useReactRouter()
   const goBack = () => {
-    history.push('/')
+    history.goBack();
   }
+
+  useEffect(() => {
+    return () => {
+      localStorage.setItem('lastRouter', history.location.pathname)
+    }
+  })
   return (
     <div className="navbar">
        <div className="navbar-item border-bottom">

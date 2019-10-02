@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect } from 'react';
+import React, { Suspense, lazy, useEffect} from 'react';
 import {Loading} from 'redell-ui'
 import { BrowserRouter, Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import Store from './store'
@@ -17,7 +17,9 @@ const getSceneConfig = (location: any) => {
 
 let oldLocation: any;
 const Routes = withRouter(({ location, history }) => {
-
+  // eslint-disable-next-line
+  const user = React.useRef<any>()
+  user.current = JSON.parse(localStorage.getItem('user') ||  '{}')
   // 转场动画应该都是采用当前页面的sceneConfig，所以：
   // push操作时，用新location匹配的路由sceneConfig
   // pop操作时，用旧location匹配的路由sceneConfig
@@ -25,13 +27,11 @@ const Routes = withRouter(({ location, history }) => {
   if (history.action === 'PUSH') {
     classNames = 'forward-' + getSceneConfig(location).enter;
   } else if (history.action === 'POP' && oldLocation) {
-    console.log(777,history.action )
     classNames = 'back-' + getSceneConfig(oldLocation).exit;
   }
 
   // 更新旧location
   oldLocation = location;
-
   return (
     <TransitionGroup
       childFactory={child => React.cloneElement(child, { classNames })}>
@@ -42,11 +42,11 @@ const Routes = withRouter(({ location, history }) => {
               const DynamicComponent = lazy(() => import(`${item.component}`));
               return <Route key={index} path={item.path} exact render={props => (
                 <div className="layout-wrapper">
-                  <Suspense fallback={<Loading name="spin" message="加载中..." ><div style={{width:'100vw',height: '100vh'}} /> </Loading>}>
+                  <Suspense fallback={<Loading name="loading" message="加载中..." ><div style={{width:'100vw',height: '100vh'}} /> </Loading>}>
                     {
                       !item.auth
                         ? (<DynamicComponent {...props} {...item} />)
-                        : (localStorage.getItem('user')
+                        : (user.current._id
                           ? (<DynamicComponent {...props}  {...item} />)
                           : (<Redirect to={{
                             pathname: "/login", state: { from: props.location }
@@ -88,7 +88,6 @@ const App: React.FC = (props) => {
           event.preventDefault();//禁止到底上拉
         }
       }
-
     }, false);
   }, [])
   return (

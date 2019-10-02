@@ -14,7 +14,7 @@ export default function auth() {
     socket.on('loginout', async (obj) => {
       console.log('用户' + obj._id + '离开聊天页面')
       //将该用户从用户池中删除
-      app.redis.delete(`${obj._id}`)
+      app.redis.del(`${obj._id}`)
     });
     await next();
   }

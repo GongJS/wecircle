@@ -73,9 +73,9 @@ const Info: React.FC = () => {
   }
   // 退出登录
   const logOut = () => {
+    history.push('/')
     localStorage.removeItem('user')
     localStorage.removeItem('token')
-    history.push('/')
   }
   return (
       visibleEditItem ?  <div className="info">

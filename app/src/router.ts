@@ -1,5 +1,5 @@
 const routers = [
-  {path: "/", name: "Index", component: './pages/index/Index', sceneConfig: {
+  {path: "/", name: "Index", component: './pages/index/Index', auth:false, sceneConfig: {
     enter: 'from-right',
     exit: 'to-right'
   }},
@@ -19,7 +19,7 @@ const routers = [
     enter: 'from-right',
     exit: 'to-right'
   }},
-  {path: "/person", name: "Person", component: './pages/person/Person', sceneConfig: {
+  {path: "/person", name: "Person", component: './pages/person/Person',sceneConfig: {
     enter: 'from-right',
     exit: 'to-right'
   }},

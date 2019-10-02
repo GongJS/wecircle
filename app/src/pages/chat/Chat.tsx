@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import useReactRouter from 'use-react-router'
 import io from 'socket.io-client';
 import Navbar from '../../components/navbar/NavBar'
 import ChatItem from '../../components/chatitem/ChatItem'
@@ -23,11 +24,16 @@ const Chat: React.FC<ChatProps> = (props) => {
   const chatView = React.useRef<HTMLDivElement>(null)
   const inputbarRef = React.useRef<InputBarHandles>(null)
   const [bottomClass, setBottomClass] = useState('bottom-view')
+  const { history } = useReactRouter()
   const user= JSON.parse(localStorage.getItem('user') ||  '{}')
   const socket = io('http://101.132.117.183:7001', {transports: ['websocket']})
 
   // 获取聊天记录
   const getchathistory = async () => {
+    if(!props.location.state) {
+      history.push('/')
+      return
+    }
     const res:any = await post('/api/message/getchathistory', {myId: user._id, toUserId:props.location.state._id })
     if (res && res.code === 0) {
       setData(res.result)

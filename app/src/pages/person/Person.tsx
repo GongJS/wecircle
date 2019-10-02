@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import useReactRouter from 'use-react-router';
 import NavBar from '../../components/navbar/NavBar'
 import './person.scss';
@@ -14,6 +14,11 @@ const Person: React.FC<PersonProps> = (props) => {
       state: {...props.location.state}
     })
   }
+  useLayoutEffect(() => {
+    if(!props.location.state) {
+      history.push('/')
+    }
+   },[]) //eslint-disable-line
   return (
     <div className="person">
       < NavBar title="个人信息" />

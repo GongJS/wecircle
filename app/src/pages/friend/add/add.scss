@@ -1,0 +1,59 @@
+.add {
+  height: 100vh;
+  background: #fff;
+  > .search-bar {
+    background-color: #efeff4;
+    padding: 10px;
+  }
+  > .item {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    position: relative;
+    align-items: center;
+    > .avatar {
+      width: 47px;
+      height: 47px;
+      border-radius: 5px;
+      margin: 15px;
+    }
+    > .right-content {
+      flex: 1;
+      margin-left: 15px;
+      padding-top: 15px;
+      padding-bottom: 11px;
+      padding-right: 15px;
+      display: flex;
+      justify-content: space-between;
+      overflow: hidden;
+      > .nickname {
+        font-size: 16px;
+        color: #000;
+        text-align: left;
+      }
+      > .text {
+        text-align: left;
+        font-size: 14px;
+        color: #818181;
+      }
+    }
+    > .time {
+      position: absolute;
+      right: 11px;
+      top: 9px;
+      color: #a3a3a3;
+      font-size: 13px;
+    }
+  }
+  > .add-friend {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    > .r-button {
+      width: 100%;
+    }
+  }
+  >.wrapper {
+    width:90vw;
+  }
+}

@@ -100,3 +100,11 @@ body {
   transition: transform 5000ms;
 }
 
+
+.r-modal-container {
+  width:90vw;
+}
+.r-modal-main {
+  padding: 0px 17px 9px 40px !important;
+}
+

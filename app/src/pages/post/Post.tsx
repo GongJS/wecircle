@@ -80,7 +80,7 @@ const Post: React.FC = () => {
     setVisible(false)
   }
   return (
-    <Loading name="spin" message="上传中..." loading={loading}>
+    <Loading name="loading" message="上传中..." loading={loading}>
     <div className="post">
       <div className="header">
         <span onClick={() => history.push('/')}>取消</span>

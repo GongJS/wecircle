@@ -1,7 +1,7 @@
 import { Service } from 'egg';
 
 /**
- * User Service
+ * Message Service
  */
 export default class MessageService extends Service {
   async addMsg(myId, content, toUserId) {
@@ -44,7 +44,7 @@ export default class MessageService extends Service {
 
     return result
   }
-  async saveMessage(myId, content, toUserId) {
+  async save(myId, content, toUserId) {
     const { ctx, app } = this
     const my = await ctx.model.User.findById(myId)
     const toUser = await ctx.model.User.findById(toUserId)
@@ -72,7 +72,7 @@ export default class MessageService extends Service {
       }
     }
   }
-  async getchathistory(myId, toUserId) {
+  async gethistory(myId, toUserId) {
     const { ctx } = this
     const list = await ctx.model.Message.find({
       $or: [
@@ -94,7 +94,7 @@ export default class MessageService extends Service {
     ctx.body = {
       code: 0,
       msg: '聊天记录获取成功',
-      result
+      data: result
     }
   }
 } 

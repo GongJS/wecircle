@@ -10,6 +10,9 @@ module.exports = app => {
     gender:String,
     update: { type: Date, default: Date.now },
     create: { type: Date, default: Date.now },
+    friend: {
+      type: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    },
   },{timestamps:{createdAt: 'create',updatedAt:'update'}});
   return mongoose.model('User', UserSchema);
 }

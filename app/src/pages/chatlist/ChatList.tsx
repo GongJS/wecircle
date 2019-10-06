@@ -19,16 +19,16 @@ const ChatList: React.FC<ChatListProps> = () => {
   const handleChange = (value:string) => {
     setKeyWord(value)
   }
-  const getchatlist = async () => {
-    const res:any = await post('/api/getchatlist',{keyword: '',myId:user._id})
+  const getlist = async () => {
+    const res:any = await post('/api/chat/getlist',{keyword: '',myId:user._id})
     setList(res.data)
   }
   const handleSearch = async () => {
-    const res:any = await post('/api/getchatlist',{keyword,myId:user._id})
+    const res:any = await post('/api/chat/getlist',{keyword,myId:user._id})
     setList(res.data)
   }
   const clearClick = () => {
-    getchatlist()
+    getlist()
   }
   const goToChat = (item:any) => {
     let userInfo: any
@@ -43,7 +43,7 @@ const ChatList: React.FC<ChatListProps> = () => {
     })
   }
   useEffect(() => {
-    getchatlist()
+    getlist()
   },[]) // eslint-disable-line
   return (
     <div className="chat-list">

@@ -19,7 +19,7 @@ export default class ChatService extends Service {
     }).sort({'create':-1}).exec();
     return list[0] || false
   }
-  async getchatlist(keyword, myId) {
+  async getlist(keyword, myId) {
     const { ctx } = this
     const list = await ctx.model.Chat.find({
       $or:[
@@ -49,7 +49,7 @@ export default class ChatService extends Service {
     }
     ctx.body = {
       code: 0,
-      msg: '评论添加成功',
+      msg: '获取私信成功',
       data: result
     }
   }

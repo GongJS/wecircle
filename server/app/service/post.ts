@@ -1,7 +1,7 @@
 import { Service } from 'egg';
 
 /**
- * User Service
+ * Post Service
  */
 export default class UserService extends Service {
   async savepost(content, picList, myId) {
@@ -16,19 +16,16 @@ export default class UserService extends Service {
     await new ctx.model.Post({ content, picList, user:myId }).save()
     ctx.body = {
       code: 0,
-      msg: '发布成功',
-      result: {
-        data: []
-      }
+      msg: '发布成功'
     }
   }
-  async getcirclepost(page: number, perPage: number) {
+  async getpost(page: number, perPage: number) {
     const { ctx } = this
     const res = await ctx.model.Post.find().sort({_id: -1}).limit(perPage).skip(page * perPage).populate('user like').populate({ path: 'comment', populate: { path: 'user' } })
     ctx.body = {
       code: 0,
       msg: 'post获取成功',
-      result: res
+      data: res
     }
   }
   async like(userId: string, postId: string) {
@@ -42,11 +39,16 @@ export default class UserService extends Service {
         postRef.like.push(user)
         post.save();
       }
-    }
-    ctx.body = {
-      code: 0,
-      msg: '点赞成功',
-      data: postRef
+      ctx.body = {
+        code: 0,
+        msg: '点赞成功',
+        data: postRef
+      }
+    } else {
+      ctx.body = {
+        code: -1,
+        msg: '用户或者朋友圈内容不存在'
+      }
     }
   }
   async dislike(userId: string, postId: string) {
@@ -61,11 +63,16 @@ export default class UserService extends Service {
         postRef.like.splice(index, 1)
         post.save();
       }
-    }
-    ctx.body = {
-      code: 0,
-      msg: '取消点赞',
-      data: postRef
+      ctx.body = {
+        code: 0,
+        msg: '取消点赞',
+        data: postRef
+      }
+    } else {
+      ctx.body = {
+        code: -1,
+        msg: '用户或者朋友圈内容不存在'
+      }
     }
   }
 }

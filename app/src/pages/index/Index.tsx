@@ -45,7 +45,7 @@ const Index: React.FC<PostItemProps> = (props) => {
         copy.bgurl = v.url
         localStorage.setItem('user', JSON.stringify(copy))
         try {
-          await post('/api/updateuserinfo', { key: 'bgurl', value:v.url, phone: user.phone })
+          await post('/api/user/update', { key: 'bgurl', value:v.url, phone: user.phone })
           message.success('背景图更新成功')
           setUser(JSON.parse(localStorage.getItem('user')!))
         } catch(err) {
@@ -70,27 +70,27 @@ const Index: React.FC<PostItemProps> = (props) => {
   const initCirclePost = async () => {
     setIsend(false)
     setPage(1)
-    const res: any = await get(`/api/post/getcirclepost?page=1&&per_page=${per_page}`)
+    const res: any = await get(`/api/post/getpost?page=1&&per_page=${per_page}`)
     if (res && res.code === 0) {
-      dispatch({ type: 'initCirclePost', postList: res.result })
+      dispatch({ type: 'initCirclePost', postList: res.data})
     }
   }
   // 下拉刷新获取朋友圈数据
-  const getCirclePost = async () => {
+  const getpost = async () => {
       setReadyToLoad(false)
-      const res: any = await get(`/api/post/getcirclepost?page=${pageRef.current}&&per_page=${per_page}`)
+      const res: any = await get(`/api/post/getpost?page=${pageRef.current}&&per_page=${per_page}`)
       if (res && res.code === 0) {
-        if (res.result.length === 0) {
+        if (res.data.length === 0) {
           setIsend(true)
         }
-        dispatch({ type: 'addCirclePost', postList: res.result })
+        dispatch({ type: 'addCirclePost', postList: res.data })
         setReadyToLoad(true)
       }
   }
   // 下拉到底部触发更新
   const loadCallback = () => {
     setPage(page => page + 1)
-    getCirclePost()
+    getpost()
   }
   useLayoutEffect(() => {
     initCirclePost()
@@ -109,7 +109,7 @@ const Index: React.FC<PostItemProps> = (props) => {
             state.postList.map((item: any, index: number) => {
               return (
                 <div key={index}>
-                  <PostItem item={item} getCirclePost={getCirclePost} />
+                  <PostItem item={item} getpost={getpost} />
                 </div>
               )
             })

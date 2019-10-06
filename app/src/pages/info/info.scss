@@ -34,6 +34,14 @@
           }
           .msg {
             text-align: center;
+            position: relative;
+            .dot {
+              position: absolute;
+              width: 5px;
+              height: 5px;
+              background: red;
+              border-radius: 50%;
+            }
           }
           > .avatar {
             display: block;

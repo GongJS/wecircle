@@ -29,7 +29,7 @@ const Login: React.FC<LoginProps> = (props) => {
   }
   // 获取验证码
   const getVerifyCode = async () => {
-    const res: any = await post('/api/verify_code', { phone })
+    const res: any = await post('/api/user/verify_code', { phone })
     if (res && res.code === 0) {
       message.success('验证码发送成功，请注意查收!')
       setHasCode(true)
@@ -39,12 +39,12 @@ const Login: React.FC<LoginProps> = (props) => {
   }
   const login = async () => {
     if (phone !== '' || code !== '') {
-      const res: any = await post('/api/login', { phone, code })
+      const res: any = await post('/api/user/login', { phone, code })
       if (res.code === 0) {
         // 登录成功存储用户信息
-        localStorage.setItem('token', res.result.token)
-        res.result.user.phone = phone
-        localStorage.setItem('user', JSON.stringify(res.result.user))
+        localStorage.setItem('token', res.data.token)
+        res.data.user.phone = phone
+        localStorage.setItem('user', JSON.stringify(res.data.user))
         history.push('/')
       } else {
         message.error('手机号错误或验证码失效！')

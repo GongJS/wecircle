@@ -29,14 +29,14 @@ const Chat: React.FC<ChatProps> = (props) => {
   const socket = io('http://101.132.117.183:7001', {transports: ['websocket']})
 
   // 获取聊天记录
-  const getchathistory = async () => {
+  const gethistory = async () => {
     if(!props.location.state) {
       history.push('/')
       return
     }
-    const res:any = await post('/api/message/getchathistory', {myId: user._id, toUserId:props.location.state._id })
+    const res:any = await post('/api/message/gethistory', {myId: user._id, toUserId:props.location.state._id })
     if (res && res.code === 0) {
-      setData(res.result)
+      setData(res.data)
       scrollToEnd(false)
     }
   }
@@ -116,7 +116,7 @@ const Chat: React.FC<ChatProps> = (props) => {
     setData(data => data.concat(newContent))
     setContent('')
     scrollToEnd(false)
-    const res:any = await post('/api/message/savemsg', { myId: user._id, toUserId: props.location.state._id, content: { type: 'pic', value: img }})
+    const res:any = await post('/api/message/save', { myId: user._id, toUserId: props.location.state._id, content: { type: 'pic', value: img }})
     if (!res || res.code !== 0) {
       message.error('发送失败')
     }
@@ -131,13 +131,13 @@ const Chat: React.FC<ChatProps> = (props) => {
     setData(data => data.concat(newContent))
     setContent('')
     scrollToEnd(false)
-    const res:any = await post('/api/message/savemsg', { myId: user._id, toUserId: props.location.state._id, content: { type: 'str', value: content }})
+    const res:any = await post('/api/message/save', { myId: user._id, toUserId: props.location.state._id, content: { type: 'str', value: content }})
     if (!res || res.code !== 0) {
       message.error('发送失败')
     }
   }
   useEffect(() => {
-    getchathistory()
+    gethistory()
     initSocket()
     return () => {socket.emit('loginout', {...user})};
   }, []) //eslint-disable-line

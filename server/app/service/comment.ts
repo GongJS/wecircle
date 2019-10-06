@@ -1,10 +1,10 @@
 import { Service } from 'egg';
 
 /**
- * User Service
+ * Comment Service
  */
 export default class CommentService extends Service {
-  async saveComment(userId, postId, content) {
+  async save(userId, postId, content) {
     const { ctx } = this
     const post = await ctx.model.Post.findById(postId)
     const postRef = await ctx.model.Post.findById(postId).populate('user like').populate({ path: 'comment', populate: { path: 'user' } })

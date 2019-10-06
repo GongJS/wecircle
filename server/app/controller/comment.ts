@@ -1,7 +1,7 @@
 import { Controller } from 'egg';
 
 export default class CommentController extends Controller {
-  async saveComment() {
+  async save() {
     const { ctx } = this;
     const userId = ctx.request.body.userId
     const postId = ctx.request.body.postId
@@ -12,6 +12,6 @@ export default class CommentController extends Controller {
       content: { type: 'string', required: true },
     };
     ctx.validate(createRule);
-    await ctx.service.comment.saveComment(userId, postId, content)
+    await ctx.service.comment.save(userId, postId, content)
   }
 }

@@ -21,7 +21,7 @@ export default class UserService extends Service {
         phone
       }).save()
     }
-    const token = app.jwt.sign({ phone }, app.config.jwt.secret, { expiresIn: 4*60*60});
+    const token = app.jwt.sign({ phone }, app.config.jwt.secret, { expiresIn: 4 * 60 * 60 });
     ctx.body = {
       code: 0,
       msg: '登录成功',
@@ -32,17 +32,40 @@ export default class UserService extends Service {
     }
   }
 
-  async updatUserInfo(key,value, phone) {
+  async update(key, value, phone) {
     const { ctx } = this
-    const res = await ctx.model.User.update({phone}, {
+    const res = await ctx.model.User.update({ phone }, {
       $set:
-        {[key]: value}
-    },{new: true})
+        { [key]: value }
+    }, { new: true })
     ctx.body = {
       code: 0,
       msg: '信息更新成功',
       [key]: res[key],
-      result: res
+      data: res
+    }
+  }
+  async search(keyword, myId) {
+    const { ctx } = this
+    const q = new RegExp(keyword);
+    const list = await ctx.model.User.find({
+      $or: [
+        { phone: q },
+        { nickname: q }
+      ]
+    })
+    if (myId) {
+      ctx.body = {
+        code: 0,
+        msg: '我的好友查找成功',
+        data: list.filter(v => v._id.toString() === myId)
+      }
+    } else {
+      ctx.body = {
+        code: 0,
+        msg: '用户查找成功',
+        data: list
+      }
     }
   }
 }

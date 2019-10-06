@@ -7,6 +7,7 @@ import ExportComment from '../../../app/controller/comment';
 import ExportHome from '../../../app/controller/home';
 import ExportMessage from '../../../app/controller/message';
 import ExportPost from '../../../app/controller/post';
+import ExportRequest from '../../../app/controller/request';
 import ExportUpload from '../../../app/controller/upload';
 import ExportUser from '../../../app/controller/user';
 
@@ -17,6 +18,7 @@ declare module 'egg' {
     home: ExportHome;
     message: ExportMessage;
     post: ExportPost;
+    request: ExportRequest;
     upload: ExportUpload;
     user: ExportUser;
   }

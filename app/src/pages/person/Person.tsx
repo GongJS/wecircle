@@ -1,5 +1,7 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState, useEffect } from 'react';
+import {Modal, Input, message} from 'redell-ui'
 import useReactRouter from 'use-react-router';
+import { post } from '../../utils/http'
 import NavBar from '../../components/navbar/NavBar'
 import './person.scss';
 
@@ -8,17 +10,52 @@ interface PersonProps {
 }
 const Person: React.FC<PersonProps> = (props) => {
   const { history } = useReactRouter()
+  const [visible, setVisible] = useState(false)
+  const [isFriend, setIsFriend] = useState(false)
+  const [content, setContent] = useState('')
+  const user = JSON.parse(localStorage.getItem('user') || '{}')
+  let toUserId = React.useRef<string>()
+
   const goToChat = () => {
     history.push({
       pathname: '/chat',
-      state: {...props.location.state}
+      state: { ...props.location.state }
     })
   }
+  const handleContentChange = (content:string)  => {
+    setContent(content)
+  }
+  const handleFriend = async () => {
+    const res: any = await post('/api/user/search', { keyword: '', myId: user._id })
+    if (res && res.code === 0) {
+      res.data[0].friend.forEach((id:string) => {
+        if (id === props.location.state._id) {
+          setIsFriend(true)
+        }
+      });
+    }
+  }
+  const showModal = async () => {
+    setVisible(true)
+    toUserId.current = props.location.state._id
+  }
+  const handleOk = async () => {
+    const res: any = await post('/api/request/addfriend', { content, myId: user._id,toUserId:toUserId.current })
+    if (res && res.code === 0) {
+      setVisible(false)
+      message.success('好友请求发送成功')
+    } else {
+      message.error(`${res.msg}`)
+    }
+  }
   useLayoutEffect(() => {
-    if(!props.location.state) {
+    if (!props.location.state) {
       history.push('/')
     }
-   },[]) //eslint-disable-line
+  })
+  useEffect(() => {
+    handleFriend()
+  })
   return (
     <div className="person">
       < NavBar title="个人信息" />
@@ -38,10 +75,16 @@ const Person: React.FC<PersonProps> = (props) => {
       <div className="panel">
         <div className="left">
           <div className="msg-icon"></div>
-          <div onClick={goToChat}>发送消息</div>
+          {
+            !isFriend ? <div onClick={showModal}>添加好友</div> : <div onClick={goToChat}>发送消息</div>
+          }
         </div>
         <div className="right"></div>
       </div>
+      <Modal visible={visible} onOk={handleOk}
+        onCancel={() => setVisible(false)} title="添加好友" className="wrapper">
+           <Input onValueChange={handleContentChange} value={content} clearable  addonBefore="内容"/>
+      </Modal> 
     </div>
   );
 }

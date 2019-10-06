@@ -65,12 +65,12 @@ const PostItem: React.FC<PostItemProps> = (props) => {
   }
 
   // 发表评论
-  const saveComment = async () => {
+  const save = async () => {
     if (!user._id) {
       message.info('请先登录')
       return
     }
-    const res: any = await post(`/api/savecomment`, { postId: props.item._id, userId: user._id, content: comment })
+    const res: any = await post(`/api/comment/save`, { postId: props.item._id, userId: user._id, content: comment })
     if (res && res.code === 0) {
       inputbarRef.current!.blurInput()
       setShowInput(false)
@@ -186,10 +186,10 @@ const PostItem: React.FC<PostItemProps> = (props) => {
   }, [props.item])
 
   const iosInputBar = <div style={{ zIndex: showInput ? 999 : -1, opacity: showInput ? 1 : 0 }} ref={inputbarWrapRef} className="postitem-input-wrap ios">
-    <InputBar ref={inputbarRef} hanldeClick={saveComment} onChange={handleChange} closeInput={closeInput} content={comment} /></div>
+    <InputBar ref={inputbarRef} hanldeClick={save} onChange={handleChange} closeInput={closeInput} content={comment} /></div>
 
   const androidInputBar = <div style={{ opacity: showInput ? 1 : 0, bottom: showInput ? '0' : '-60px' }} ref={inputbarWrapRef} className="postitem-input-wrap android" >
-    <InputBar ref={inputbarRef} hanldeClick={saveComment} onChange={handleChange} closeInput={closeInput} content={comment} />
+    <InputBar ref={inputbarRef} hanldeClick={save} onChange={handleChange} closeInput={closeInput} content={comment} />
   </div>
 
   const container = document.querySelector('.index')

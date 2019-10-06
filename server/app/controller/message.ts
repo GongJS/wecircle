@@ -1,7 +1,7 @@
 import { Controller } from 'egg';
 
 export default class MessageController extends Controller {
-  public async saveMessage() {
+  public async save() {
     const { ctx } = this;
     const myId = ctx.request.body.myId
     const content = JSON.parse(ctx.request.body.content)
@@ -13,9 +13,9 @@ export default class MessageController extends Controller {
       toUserId: { type: 'string', required: true },
     };
     ctx.validate(createRule);
-    await ctx.service.message.saveMessage(myId, content, toUserId)
+    await ctx.service.message.save(myId, content, toUserId)
   }
-  public async getchathistory() {
+  public async gethistory() {
     const { ctx } = this;
     const myId = ctx.request.body.myId
     const toUserId = ctx.request.body.toUserId
@@ -24,6 +24,6 @@ export default class MessageController extends Controller {
       toUserId: { type: 'string', required: true },
     };
     ctx.validate(createRule);
-    await ctx.service.message.getchathistory(myId, toUserId)
+    await ctx.service.message.gethistory(myId, toUserId)
   }
 }

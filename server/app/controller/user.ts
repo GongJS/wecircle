@@ -50,7 +50,7 @@ export default class UserController extends Controller {
     }
   }
  
-  public async updatUserInfo() {
+  public async update() {
     const { ctx } = this;
     const key = ctx.request.body.key
     const value = ctx.request.body.value
@@ -61,6 +61,17 @@ export default class UserController extends Controller {
       phone: { type: 'string', required: true, max: '11', min: '11' },
     };
     ctx.validate(createRule);
-    await ctx.service.user.updatUserInfo(key,value,phone)
+    await ctx.service.user.update(key,value,phone)
+  }
+  public async search() {
+    const { ctx } = this;
+    const keyword = ctx.request.body.keyword || ''
+    const myId = ctx.request.body.myId || ''
+    const createRule = {
+      keyword: { type: 'string',required:false},
+      myId: { type: 'string',required:false }
+    };
+    ctx.validate(createRule);
+    await ctx.service.user.search(keyword,myId)
   }
 }

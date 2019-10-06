@@ -25,7 +25,7 @@ export default class UserService extends Service {
     ctx.body = {
       code: 0,
       msg: '登录成功',
-      result: {
+      data: {
         token,
         user
       }

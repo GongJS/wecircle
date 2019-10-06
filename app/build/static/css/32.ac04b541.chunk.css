@@ -1,2 +1,0 @@
-.header-bar{height:57px;line-height:57px;position:fixed;width:100%;-webkit-transition:all .4s;transition:all .4s;z-index:100;top:0;left:0;right:0;text-align:center}.header-bar:after{display:none}.header-bar.show,.header-bar.show:after{background-color:#ededed}.header-bar.show:after{display:block}.header-bar>.title{font-size:5vw;font-weight:700}.header-bar>.right-icon{width:6.4vw;height:6.4vw;position:absolute;right:4.533vw;top:15px}
-/*# sourceMappingURL=32.ac04b541.chunk.css.map */

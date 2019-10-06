@@ -6,7 +6,6 @@ import { post } from '../../utils/http'
 import EditItem from '../../components/editItem/EditItem'
 import NavBar from '../../components/navbar/NavBar'
 import './info.scss'
-import { spawn } from 'child_process';
 
 interface FileListProps {
   name?: string

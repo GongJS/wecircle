@@ -34,7 +34,6 @@ config/**/*.map
 /coverage
 
 # production
-/build
 
 # misc
 .DS_Store

@@ -1,0 +1,2 @@
+.chat{display:flex;height:100vh;flex-direction:column}.chat .bottom-view{width:100%;height:56px;overflow:hidden;-webkit-transition:height .2s;transition:height .2s}.chat .bottom-view.show{width:100%;height:285px}.chat .chat-view{flex:1 1;background-color:#ededed;overflow:auto;-webkit-overflow-scrolling:touch}
+/*# sourceMappingURL=38.0caf76fe.chunk.css.map */

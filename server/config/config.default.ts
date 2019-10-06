@@ -15,8 +15,8 @@ export default (appInfo: EggAppInfo) => {
     TemplateCode: 'SMS_157680540'
   };
   config.mongoose = {
-    url: 'mongodb+srv://gongjs:gong778899@zhihu-1gwpe.mongodb.net/circle?retryWrites=true&w=majority',
-    // url: 'mongodb://gongjs:778899@localhost/wecircle'
+    //url: 'mongodb+srv://gongjs:gong778899@zhihu-1gwpe.mongodb.net/circle?retryWrites=true&w=majority',
+    url: 'mongodb://gongjs:778899@localhost/wecircle'
   };
 
   config.redis = {

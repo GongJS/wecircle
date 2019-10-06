@@ -47,7 +47,7 @@ const Add: React.FC<AddProps> = () => {
     <div className="add">
       <NavBar title="添加好友" />
       <div className="search-bar">
-        <Input onValueChange={handleKeyWordChange} value={keyword} clearable addonAfter="查找" extraClick={handleSearch} />
+        <Input onValueChange={handleKeyWordChange} value={keyword} clearable addonAfter="查找" extraClick={handleSearch} placeholder="手机号/用户名"/>
       </div>
       {
         list.map((item: any) => {

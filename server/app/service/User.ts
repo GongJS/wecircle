@@ -50,10 +50,10 @@ export default class UserService extends Service {
     const q = new RegExp(keyword);
     const list = await ctx.model.User.find({
       $or: [
-        { phone: q },
-        { nickname: q }
+        { phone: { $regex: q } },
+        { nickname: { $regex: q } }
       ]
-    })
+    }).populate('friend')
     if (myId) {
       ctx.body = {
         code: 0,

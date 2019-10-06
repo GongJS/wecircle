@@ -22,6 +22,7 @@ const Friend: React.FC<FriendProps> = () => {
     setKeyWord(value)
   }
   const handleSearch = async () => {
+    console.log(11111)
     const res: any = await post('/api/user/search', { keyword: value.current, myId: user._id })
     if (res && res.code === 0) {
       setList(res.data)
@@ -45,7 +46,7 @@ const Friend: React.FC<FriendProps> = () => {
     <div className="friend">
       <NavBar title="我的好友" />
       <div className="search-bar">
-        <Input onValueChange={handleChange} value={keyword} clearable addonAfter="查找" extraClick={handleSearch} clearClick={clearClick} />
+        <Input onValueChange={handleChange} value={keyword} clearable addonAfter="查找" extraClick={handleSearch} clearClick={clearClick} placeholder="手机号/用户名" />
       </div>
       {
         list.map((item: any) => {

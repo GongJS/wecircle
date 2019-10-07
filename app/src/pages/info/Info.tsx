@@ -91,7 +91,7 @@ const Info: React.FC = () => {
   }
   useEffect(() => {
     getRequestList()
-  })
+  },[]) // eslint-disable-line
   return (
     visibleEditItem ? <div className="info">
       <NavBar title="个人信息" />

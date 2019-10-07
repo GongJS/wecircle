@@ -44,9 +44,10 @@
     }
   }
  >.add-friend {
-   position: fixed;
-   bottom: 0;
-   width:100%;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  top: calc(100vh - 6vw);
    >.r-button {
      width:100%;
    }

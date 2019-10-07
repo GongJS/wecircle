@@ -49,7 +49,7 @@ const ChatList: React.FC<ChatListProps> = () => {
     <div className="chat-list">
       <NavBar title="我的私信" />
       <div className="search-bar">
-        <Input onValueChange={handleChange} value={keyword} clearable  addonAfter="查找" extraClick={handleSearch} clearClick={clearClick}/>
+        <Input onValueChange={handleChange} value={keyword} clearable  addonAfter="查找" extraClick={handleSearch} clearClick={clearClick} placeholder="输入私信内容"/>
       </div>
       {
         list.map((item:any) => {

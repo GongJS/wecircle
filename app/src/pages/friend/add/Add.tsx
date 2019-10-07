@@ -26,7 +26,7 @@ const Add: React.FC<AddProps> = () => {
     setContent(content)
   }
   const handleSearch = async () => {
-    const res: any = await post('/api/user/search', { keyword, myId: user._id })
+    const res: any = await post('/api/user/search', { keyword })
     setShowEmpty(true)
     setList(res.data)
   }

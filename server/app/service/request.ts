@@ -32,10 +32,19 @@ export default class RequestService extends Service {
         msg: '用户不存在',
       }
     }
-    await new ctx.model.Request({ content, toUser: toUserId, fromUser: myId }).save()
-    ctx.body = {
-      code: 0,
-      msg: '添加好友请求发送成功'
+    const request:any = ctx.model.Request.find({toUser: toUserId, fromUser: myId})
+    console.log(1,request)
+    if (request && request.status === 'pending') {
+      ctx.body = {
+        code: 0,
+        msg: '请求重复'
+      }
+    } else {
+      await new ctx.model.Request({ content, toUser: toUserId, fromUser: myId }).save()
+      ctx.body = {
+        code: 0,
+        msg: '添加好友请求发送成功'
+      }
     }
   }
   async agree(myId, fromUserId,requestId) {

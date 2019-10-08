@@ -83,7 +83,7 @@ const Info: React.FC = () => {
     const res:any = await post('/api/request/getlist',{myId:user._id})
     if (res && res.code === 0) {
       res.data.forEach((v:any) => {
-        if(v.status === 'pedding') {
+        if(v.status === 'pending') {
           setShowDot(true)
         }
       })

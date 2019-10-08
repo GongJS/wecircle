@@ -28,7 +28,7 @@ const Person: React.FC<PersonProps> = (props) => {
   const handleFriend = async () => {
     const res: any = await post('/api/user/search', { keyword: '', myId: user._id })
     if (res && res.code === 0) {
-      res.data[0].friend.forEach((v:any) => {
+      res.data[0] && res.data[0].friend.forEach((v:any) => {
         if (v._id === props.location.state._id) {
           setIsFriend(true)
         }

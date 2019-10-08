@@ -7,14 +7,14 @@ import { Service } from 'egg';
 export default class RequestService extends Service {
   async getlist(myId) {
     const { ctx } = this
-    const toUser = ctx.model.User.findById(myId)
+    const toUser = await ctx.model.User.findById(myId)
     if (!toUser) {
       ctx.body = {
         code: -1,
         msg: '用户不存在'
       }
     } else {
-      const list = await ctx.model.Request.find({toUser: myId}).populate('fromUser').sort({ 'create': -1 }).exec()
+      const list = await ctx.model.Request.find({ toUser: myId }).populate('fromUser').sort({ 'create': -1 }).exec()
       ctx.body = {
         code: 0,
         msg: '好友请求列表获取成功',
@@ -24,34 +24,35 @@ export default class RequestService extends Service {
   }
   async addfriend(content, toUserId, myId) {
     const { ctx } = this
-    const my = ctx.model.User.findById(myId)
-    const toUser = ctx.model.User.findById(toUserId)
+    const my = await ctx.model.User.findById(myId)
+    const toUser = await ctx.model.User.findById(toUserId)
     if (!my || !toUser) {
       ctx.body = {
         code: -1,
         msg: '用户不存在',
       }
     }
-    const request:any = ctx.model.Request.find({toUser: toUserId, fromUser: myId})
-    console.log(1,request)
-    if (request && request.status === 'pending') {
-      ctx.body = {
-        code: 0,
-        msg: '请求重复'
-      }
-    } else {
-      await new ctx.model.Request({ content, toUser: toUserId, fromUser: myId }).save()
-      ctx.body = {
-        code: 0,
-        msg: '添加好友请求发送成功'
+    const request: any = await ctx.model.Request.find({ toUser: toUserId, fromUser: myId })
+    for (let i = 0; i < request.length; i++) {
+      if (request[i].status === 'pending') {
+        ctx.body = {
+          code: 0,
+          msg: ''
+        }
+        return
       }
     }
+    await new ctx.model.Request({ content, toUser: toUserId, fromUser: myId }).save()
+    ctx.body = {
+      code: 0,
+      msg: '添加好友请求发送成功'
+    }
   }
-  async agree(myId, fromUserId,requestId) {
+  async agree(myId, fromUserId, requestId) {
     const { ctx } = this
-    const my = ctx.model.User.findById(requestId)
-    const toUser = ctx.model.User.findById(requestId)
-    const request = ctx.model.Request.findById(requestId)
+    const my = await ctx.model.User.findById(requestId)
+    const toUser = await ctx.model.User.findById(requestId)
+    const request = await ctx.model.Request.findById(requestId)
     if (!request && !my && !toUser) {
       ctx.body = {
         code: -1,
@@ -80,7 +81,7 @@ export default class RequestService extends Service {
   }
   async reject(requestId) {
     const { ctx } = this
-    const request = ctx.model.Request.findById(requestId)
+    const request = await ctx.model.Request.findById(requestId)
     if (!request) {
       ctx.body = {
         code: -1,

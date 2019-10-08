@@ -6,7 +6,7 @@ import { Service } from 'egg';
 export default class UserService extends Service {
   async savepost(content, picList, myId) {
     const { ctx } = this
-    const user = ctx.model.User.findById(myId)
+    const user = await ctx.model.User.findById(myId)
     if (!user) {
       ctx.body = {
         code: -1,
